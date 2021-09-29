@@ -1,2 +1,2 @@
 # velasca-app
-Test application for Velasca
+Test e-commerce application for Velasca
