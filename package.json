@@ -39,6 +39,9 @@
   "devDependencies": {
     "prettier": "^2.4.1"
   },
+  "engines": {
+    "node": ">=12.13"
+  },
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
   }
