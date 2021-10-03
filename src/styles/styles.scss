@@ -1,2 +1,8 @@
 @import "variables";
 @import "base";
+
+//components
+@import "../components/components.scss";
+
+//pages
+@import "../pages/home/home.scss";
