@@ -1,29 +1,9 @@
 .homePage {
+    height: 100%;
 }
 .homePage__productList {
     background-color: $color-white;
-    & > div:last-child {
-        display: flex;
-        flex-flow: row wrap;
-        //justify-content: space-between;
-    }
-}
-.homePage__productItem {
-    width: 340px;
-    padding: 20px;
-    flex-grow: 1;
-    & > div:first-child{
-        background-color: $color-white;
-        height: 300px;
-        width: 100%;
-        & > img {
-            max-width: 300px;
-            max-height: 300px;
-        }
-    }
-    & > div:last-child{
-        max-width: 100%;
-        word-wrap: break-word;
-
-    }
+    display: flex;
+    flex-flow: row wrap;
+    //justify-content: space-between;
 }

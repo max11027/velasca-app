@@ -2,44 +2,61 @@ import React from 'react';
 import { fetchProducts } from '../../services/products.service';
 import CustomContainer from '../../components/CustomContainer/CustomContainer';
 import { withCustomPageWrapper } from "../../hoc/withCustomPageWrapper";
+import ProductItem from '../../components/ProductItem/ProductItem';
+import CustomLoader from '../../components/CustomLoader/CustomLoader';
+import CustomNav from '../../components/CustomNav/CustomNav';
 const Home = () => {
     const [products, setProducts] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
+    const [productsCount, setProductsCount] = React.useState(20);
     const [productsError, toggleProductsError] = React.useState(false);
 
     React.useEffect(() => {
-        fetchProducts()
-            .then(products => {
-                //console.log(products);
-                setProducts(products)
-            })
-            .catch(error => {
-                toggleProductsError(true)
-            })
+        doFetchProducts(productsCount)
+        document.addEventListener("scroll", handleScrollY);
+        return () => {
+            document.removeEventListener("scroll", handleScrollY);
+        }
     }, []);
 
-    return (
-        <div className="homePage">
-            <div className="homePage__nav">
-                My Store
-            </div>
-            <CustomContainer className="homePage__productList">
-                <div className="homePageProductList__header">
+    const handleScrollY = () => {
+        if (window.innerHeight + document.documentElement.scrollTop
+            === document.documentElement.offsetHeight) {
+            const newCount = productsCount + 20;
+            doFetchProducts(newCount);
+            setProductsCount(newCount);
+        }
+    }
 
-                </div>
-                <div>
-                    {products?.length &&
-                        products.map(product => (
-                            <div className="homePage__productItem">
-                                <div>
-                                    <img src={product?.image} alt={product?.description || product?.title || ""} />
-                                </div>
-                                <div>{product?.title || ""}</div>
+    const doFetchProducts = (size) => {
+        setLoading(true);
+        fetchProducts(size)
+            .then(products => {
+                setLoading(false);
+                setProducts(products);
+            })
+            .catch(error => {
+                setLoading(false);
+                toggleProductsError(true);
+            })
+    };
+
+    return (
+        <>
+            <CustomNav />
+            {loading && <CustomLoader />}
+            <div className="homePage">
+                <div className="homePage__productList">
+                    {!!products?.length &&
+                        products.map((product, idx) => (
+                            <div key={idx}>
+                                <ProductItem {...product} />
                             </div>
                         ))
                     }
                 </div>
-            </CustomContainer>
-        </div>
+            </div>
+        </>
     );
 }
 export default withCustomPageWrapper(Home);
