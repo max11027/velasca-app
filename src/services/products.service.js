@@ -10,6 +10,5 @@ export const fetchProducts = (size) =>
       return res?.data || [];
     })
     .catch((e) => {
-      console.error(e);
-      return new Error(e);
+      throw new Error(e);
     });

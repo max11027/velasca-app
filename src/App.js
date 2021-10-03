@@ -1,9 +1,13 @@
+import React from "react";
 import Home from "./pages/home/Home";
 import Cart from "./pages/cart/Cart";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PATH } from "./routes/utils";
 
 function App() {
+  const AppContext = React.createContext({
+    cart: [],
+  });
   return (
     <div className="App">
       <Router>
