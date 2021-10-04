@@ -8,6 +8,9 @@
     margin-bottom: 50px;
     background: linear-gradient(96deg, $color-grey-darker 0%, #676666 69%, $color-grey-darker 100%);
     box-shadow: 1px 2px 4px 1px $color-grey-dark inset;
+    @include mobile {
+        padding: 0 30px;
+    }
 }
 
 .customNav__header {
@@ -148,7 +151,7 @@
     border-radius: 40px;
     background-color: $color-orange;
     box-shadow: 1px 1px 4px 1px $color-grey-darker;
-    &:hover{
+    &:hover {
         cursor: pointer;
         box-shadow: 1px 1px 4px 0 $color-grey-darker;
     }
@@ -160,13 +163,18 @@
 .cartWidget {
     display: flex;
     flex-flow: row nowrap;
-    padding: 6px 15px;
+    align-items: center;
+    padding: 8px 20px 8px 30px;
     border-radius: 30px;
     &:hover {
-        background-color: #4d5053;
+        background-color: $color-grey-darker;
+        box-shadow: 1px 1px 2px 0 $color-grey-darker inset;
     }
-    &.hasItems {
-        background-color: $color-grey;
+    &.highlight {
+        background-color: $color-orange;
+        &:hover {
+            box-shadow: 1px 1px 2px 0 $color-grey-darker inset;
+        }
     }
     .cartWidget__icon {
         & > svg {
@@ -175,10 +183,13 @@
         }
     }
     .cartWidget__counter {
+        font-size: 18px;
         margin-left: 10px;
         width: 24px;
         height: 24px;
         border-radius: 24px;
+        color: $color-grey-darker;
+        text-decoration: none;
         &.hidden {
             visibility: hidden;
             pointer-events: none;

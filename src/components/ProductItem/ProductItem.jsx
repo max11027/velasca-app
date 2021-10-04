@@ -1,6 +1,7 @@
 import React from 'react';
 import commonTools from "../../tools/common";
 import { ReactComponent as AddIcon } from "../../assets/custom/shopping-bag.svg";
+import Ellipsis from 'react-ellipsis-pjs';
 
 const ProductItem = (props) => {
     const [isHovered, toggleHovered] = React.useState(false);
@@ -30,7 +31,10 @@ const ProductItem = (props) => {
                                 <div className="productItemActionBar__price">
                                     {commonTools.euroFormatter(props?.price)}
                                 </div>
-                                <div className="productItemActionBar__add">
+                                <div 
+                                className="productItemActionBar__add"
+                                onClick={(e)=>props.onAddProduct(props.id)}
+                                >
                                     <AddIcon />
                                 </div>
                             </div>
@@ -38,7 +42,8 @@ const ProductItem = (props) => {
                     </div>
                 </div>
                 <div className={`productItem__title ${isHovered ? "active" : ""}`}>
-                    {props?.title || ""}
+                <Ellipsis text={props?.title} lines={2} /> 
+
                 </div>
             </div>
         </div>

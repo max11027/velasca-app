@@ -7,7 +7,7 @@ const CartWidget = ({ counter }) => {
             <div className={`cartWidget__icon`}>
                 <CartIcon />
             </div>
-            <div className={`cartWidget__counter ${counter < 1 ? "hidden" : ""}`}>{counter}</div>
+            <div className={`cartWidget__counter`}>{counter}</div>
         </div>
     );
 }

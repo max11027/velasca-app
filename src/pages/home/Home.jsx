@@ -46,6 +46,18 @@ const Home = () => {
         }
     }
 
+    const handleAddProduct = (productId) => {
+        const newCart = [...cart],
+            productIndex = newCart.findIndex(item => item?.productId == productId);
+        if (productIndex >= 0)
+            newCart[productIndex].quantity += 1;
+        else newCart.push({
+            productId,
+            quantity: 1
+        })
+        setCart(newCart);
+    }
+
     const doFetchProducts = (size) => {
         setLoading(true);
         //fetchProducts(size)
@@ -76,7 +88,7 @@ const Home = () => {
 
     return (
         <>
-            <CustomNav />
+            <CustomNav cart={cart} />
             <CustomAlert show={error} />
             {loading && <CustomLoader />}
             <div className="homePage">
@@ -85,7 +97,10 @@ const Home = () => {
                         {!!products?.length &&
                             products.map((product, idx) => (
                                 <div key={idx}>
-                                    <ProductItem {...product} />
+                                    <ProductItem
+                                        onAddProduct={handleAddProduct}
+                                        {...product}
+                                    />
                                 </div>
                             ))
                         }

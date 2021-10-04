@@ -45,7 +45,8 @@
   },
   "devDependencies": {
     "css-loader": "^6.3.0",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "react-ellipsis-pjs": "^2.1.2"
   },
   "engines": {
     "node": ">=12.13"
