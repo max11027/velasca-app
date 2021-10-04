@@ -1,12 +1,19 @@
 body {
     min-height: 100vh;
     margin: 0;
-    font-family: 'Roboto Slab', serif;
+    font-family: "Roboto Slab", serif;
     background-color: $color-grey;
     color: $color-grey-darker;
-  }
+}
 
-  a{
-      color: $color-grey-darker;
-      text-decoration: none;
-  }
+a {
+    color: $color-grey-darker;
+    text-decoration: none;
+}
+
+//icons
+.customIcon {
+    margin: 1px;
+    width: 24px;
+    height: 24px;
+}

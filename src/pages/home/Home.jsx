@@ -1,26 +1,35 @@
 import React from 'react';
 import { fetchProducts } from '../../services/products.service';
 import { fetchCart } from '../../services/cart.service';
-import CustomContainer from '../../components/CustomContainer/CustomContainer';
 import { withCustomPageWrapper } from "../../hoc/withCustomPageWrapper";
 import ProductItem from '../../components/ProductItem/ProductItem';
 import CustomLoader from '../../components/CustomLoader/CustomLoader';
+import CustomContainer from '../../components/CustomContainer/CustomContainer';
 import CustomNav from '../../components/CustomNav/CustomNav';
 import CustomAlert from '../../components/CustomAlert/CustomAlert';
+import { AppContext } from "../../appContext";
 
 const Home = () => {
-    const [products, setProducts] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const [productsCount, setProductsCount] = React.useState(20);
     const [error, toggleError] = React.useState(false);
 
+    const {
+        products,
+        cart,
+        setProducts,
+        setCart
+    } = React.useContext(AppContext);
+
     React.useEffect(() => {
-        doFetchProducts(productsCount);
-        doFetchCart();
-        document.addEventListener("scroll", handleScrollY);
-        return () => {
-            document.removeEventListener("scroll", handleScrollY);
-        }
+        if (!products?.length)
+            doFetchProducts(productsCount);
+        if (!cart?.length)
+            doFetchCart();
+        // document.addEventListener("scroll", handleScrollY);
+        // return () => {
+        //     document.removeEventListener("scroll", handleScrollY);
+        // }
     }, []);
 
     React.useEffect(() => {
@@ -39,7 +48,8 @@ const Home = () => {
 
     const doFetchProducts = (size) => {
         setLoading(true);
-        fetchProducts(size)
+        //fetchProducts(size)
+        fetchProducts()
             .then(products => {
                 setLoading(false);
                 setProducts(products);
@@ -54,6 +64,8 @@ const Home = () => {
         setLoading(true);
         fetchCart()
             .then(cart => {
+                /** IGNORING MOCKED RESPONSE */
+                //setCart(cart?.products || []);
                 setLoading(false);
             })
             .catch(error => {
@@ -68,15 +80,17 @@ const Home = () => {
             <CustomAlert show={error} />
             {loading && <CustomLoader />}
             <div className="homePage">
-                <div className="homePage__productList">
-                    {!!products?.length &&
-                        products.map((product, idx) => (
-                            <div key={idx}>
-                                <ProductItem {...product} />
-                            </div>
-                        ))
-                    }
-                </div>
+                <CustomContainer>
+                    <div className="homePage__productList">
+                        {!!products?.length &&
+                            products.map((product, idx) => (
+                                <div key={idx}>
+                                    <ProductItem {...product} />
+                                </div>
+                            ))
+                        }
+                    </div>
+                </CustomContainer>
             </div>
         </>
     );

@@ -1,0 +1,39 @@
+.cartPage__table{
+    width: 100%;
+    & > table{
+        width: 100%;
+        & > thead{
+
+        }
+        & > tbody{
+            
+        }
+    }
+}
+
+.cartPageTable__deleteIcon{
+    @extend .customIcon;
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    border-radius: 15px;
+    color: red;
+    &:hover{
+        cursor: pointer;
+        background-color: $color-grey;
+        color: $color-white;
+    }
+}
+.cartPage__footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    & > div:last-child {
+        display: inline;
+        & > svg {
+            width: 30px;
+            height: 30px;
+        }
+    }
+}
