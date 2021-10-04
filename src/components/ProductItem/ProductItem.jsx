@@ -24,7 +24,7 @@ const ProductItem = (props) => {
             >
             <div className="productItem__content">
                 <div className="productItem__image">
-                    <img src={props?.image} alt={props?.description || props?.title || ""} />
+                    <img src={props?.image} alt={props?.title || ""} />
                     <div className={`productItem__actionBar ${isHovered ? "active" : ""}`}>
                         <div>
                             <div>
